@@ -5,5 +5,5 @@ ControllerSettings:
     minimum_temperature: 15  # Minimum temperature in the room.
     maximum_temperature: 30  # Maximum temperature in the room.
   actions:
-    p_change_for_voltage: 2000  # Step size [W] for power setpoint adjustment for voltage correction.
-    p_change_for_temperature: 2000  # Step size [W] for power setpoint adjustment for temperature correction.
+    p_change_for_voltage: 200000  # Step size [W] for power setpoint adjustment for voltage correction.
+    p_change_for_temperature: 200000  # Step size [W] for power setpoint adjustment for temperature correction.

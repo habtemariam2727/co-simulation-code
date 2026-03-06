@@ -133,3 +133,18 @@ def process_active_power_data_frame(active_power_df: pd.DataFrame) -> pd.DataFra
     return active_power_df   
 
 
+# run the power flow as a standalone, take topology an dcombined active power, cal run power flow 
+
+
+if __name__ == "__main__":
+    # Example usage
+    grid_topology_df = pd.read_csv("data/grid_topology.csv")
+    active_power_df = pd.read_csv("data/combined_profiles_one_year.csv", index_col=0, parse_dates=True)
+    active_power_df = process_active_power_data_frame(active_power_df)
+   
+    for time_step in active_power_df.index:
+        voltage = run_power_flow(grid_topology_df, active_power_df, time_step)
+        print(voltage)
+   
+
+   
