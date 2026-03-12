@@ -3,7 +3,7 @@ import os
 import yaml
 
 
-def load_configurations(configurations_folder_path: str) -> tuple[dict, list[dict[str, dict]]]:
+def load_configurations(configurations_folder_path: str, use_forecasted: bool = False) -> tuple[dict, list[dict[str, dict]]]:
     """Load configurations from YAML files in the specified folder path."""
 
     config_files = [f for f in os.listdir(configurations_folder_path) if f.endswith('.yaml')]
@@ -21,6 +21,19 @@ def load_configurations(configurations_folder_path: str) -> tuple[dict, list[dic
                 config_id = config_data["InitializationSettings"]["config_id"]
             except KeyError as e:
                 raise KeyError(f"Configuration file {config_file} is missing the 'config_id' key.") from e
+            
+
+            #  choose the appropriate power setpoints file based on the use_forecasted flag
+            if use_forecasted:
+                 config_data["InitializationSettings"]["passive_consumers_power_setpoints"] = (
+                "./data/combined_active_power_forecasted.csv"
+            )
+            else:
+                config_data["InitializationSettings"]["passive_consumers_power_setpoints"] = (
+                "./data/combined_profiles_one_year.csv"
+            )
+                
+
             initialization_configurations[f"config {config_id}"] = config_data
     
     return controller_configuration, initialization_configurations
