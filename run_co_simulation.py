@@ -19,10 +19,7 @@ args = parser.parse_args()
 
 configurations_folder_path = "./configurations"
 
-controller_config, settings_configs = load_configurations(
-    configurations_folder_path,
-    use_forecasted=args.use_forecasted
-)
+controller_config, settings_configs = load_configurations(configurations_folder_path, use_forecasted=args.use_forecasted)
 
 electric_grid_model = Model(electric_grid_function)
 heat_pump_model = Model(heat_pump_function)
