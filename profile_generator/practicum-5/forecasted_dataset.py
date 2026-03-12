@@ -3,11 +3,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Load the original profiles
-input_file = 'practicum-5/combined_profiles_one_year_original.csv'
+input_file = 'profile_generator/practicum-5/combined_profiles_one_year_original.csv'
 df = pd.read_csv(input_file)
 
 # Introduce noise to simulate forecasted profiles
-std_dev = 0.3  # 30% noise
+std_dev = 0.6  # 60% noise
 
 customer_columns = df.columns[1:]
 df_forecasted = df.copy()
@@ -16,7 +16,7 @@ df_forecasted = df.copy()
 noise_scale = std_dev * df[customer_columns].mean().abs()
 df_forecasted[customer_columns] += np.random.normal(0, noise_scale.values, size=df[customer_columns].shape)
 
-output_file = 'practicum-5/combined_active_power_forecasted.csv'
+output_file = 'profile_generator/practicum-5/combined_active_power_forecasted.csv'
 output_file2 = 'data/combined_active_power_forecasted.csv'
 df_forecasted.to_csv(output_file, index=False)
 df_forecasted.to_csv(output_file2, index=False)
